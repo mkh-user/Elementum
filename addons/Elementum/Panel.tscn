@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm1nprq70dggn"]
+
+[ext_resource type="Texture2D" uid="uid://uvsclqblw7eu" path="res://addons/Elementum/Reload.svg" id="1_2fc02"]
+[ext_resource type="Script" path="res://addons/Elementum/scripts/Panel.gd" id="1_b0w10"]
+
+[node name="Panel" type="Control"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b0w10")
+
+[node name="V" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="H" type="HBoxContainer" parent="V"]
+layout_mode = 2
+
+[node name="SearchBar" type="LineEdit" parent="V/H"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FilterMenu" type="OptionButton" parent="V/H"]
+layout_mode = 2
+item_count = 4
+selected = 0
+allow_reselect = true
+popup/item_0/text = "All"
+popup/item_0/id = 0
+popup/item_1/text = "Node"
+popup/item_1/id = 1
+popup/item_2/text = "Class"
+popup/item_2/id = 2
+popup/item_3/text = "Library"
+popup/item_3/id = 3
+
+[node name="Reload" type="Button" parent="V/H"]
+layout_mode = 2
+icon = ExtResource("1_2fc02")
+
+[node name="Scroll" type="ScrollContainer" parent="V"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemList" type="ItemList" parent="V/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+allow_reselect = true
+item_count = 2
+same_column_width = true
+item_0/text = "Failed to load elements list from server!"
+item_0/selectable = false
+item_1/text = "ERR 0 : Cann't connect to the server!"
+item_1/selectable = false
