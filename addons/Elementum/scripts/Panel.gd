@@ -6,6 +6,7 @@ class_name Elementum_Panel
 @onready var filter_menu := $V/H/FilterMenu
 @onready var elements_list := $V/Scroll/ItemList
 @onready var reload := $V/H/Reload
+@onready var license := $V/H/License
 
 # A reference to the list of scripts
 var elements := []
@@ -15,9 +16,12 @@ func _ready():
 	filter_menu.item_selected.connect(self._on_filter_menu_item_selected)
 	elements_list.item_selected.connect(self._on_elements_list_item_selected)
 	reload.pressed.connect(self._reload)
+	license.pressed.connect(self._show_license)
 	_load_elements()
 	_create_confirmation_dialog()
 
+func _show_license():
+	OS.shell_open("https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/LICENSE")
 
 func _reload():
 	_load_elements()
