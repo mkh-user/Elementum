@@ -48,7 +48,7 @@ func _on_request_completed(result, response_code, headers, body, save_path):
 		var error := json.parse(json_string)
 		if error:
 			elements_list.clear()
-			elements_list.add_item("Failed to parse elements list from server! Error %s happend in %s at line %s." % json.get_error_message(),json_string,json.get_error_line(), null, false)
+			elements_list.add_item("Failed to parse elements list from server! Error {error} happend at line {line}.".format({"error": json.get_error_message(), "line": json.get_error_line()}), null, false)
 			return
 		elements = json.data
 		_update_script_list()

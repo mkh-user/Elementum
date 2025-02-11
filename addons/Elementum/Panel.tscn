@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm1nprq70dggn"]
+[gd_scene load_steps=3 format=3 uid="uid://dm1nprq70dggn"]
 
 [ext_resource type="Texture2D" uid="uid://uvsclqblw7eu" path="res://addons/Elementum/Reload.svg" id="1_2fc02"]
 [ext_resource type="Script" path="res://addons/Elementum/scripts/Panel.gd" id="1_b0w10"]
-[ext_resource type="Texture2D" uid="uid://dyyl1a040p7es" path="res://addons/Elementum/icons/C.svg" id="3_2bwtj"]
 
 [node name="Panel" type="Control"]
 custom_minimum_size = Vector2(100, 0)
@@ -60,7 +59,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 allow_reselect = true
-item_count = 1
 same_column_width = true
-item_0/text = "Percent - This class manages percentage values, allowing for setting, getting, and arithmetic operations and more."
-item_0/icon = ExtResource("3_2bwtj")

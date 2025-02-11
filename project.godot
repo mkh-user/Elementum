@@ -14,6 +14,10 @@ config/name="Elementum"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://addons/Elementum/icon.svg"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Elementum/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
