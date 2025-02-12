@@ -1,6 +1,6 @@
 @tool
-extends HTTPRequest
 class_name E_Downloader
+extends HTTPRequest
 
 func download_script(url: String, save_path: String) -> void:
 	var http_request = HTTPRequest.new()
@@ -19,3 +19,4 @@ func _on_request_completed(result, response_code, headers, body, save_path):
 		preload("res://addons/Elementum/ElementManager.gd").new().on()
 	else:
 		printerr("Failed to download \"{Element}\": {ERR}".format({"Element": save_path.get_file().split(".")[0],"ERR": response_code}))
+	queue_free()

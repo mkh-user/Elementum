@@ -1,6 +1,6 @@
 @tool
-extends EditorPlugin
 class_name E_ElementManger
+extends EditorPlugin
 
 var nodes
 var libraries

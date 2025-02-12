@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c1rw8bowojmoa" path="res://addons/Elementum/icons/L.svg" id="4_7sv22"]
 [ext_resource type="Texture2D" uid="uid://cgvp37uvughw2" path="res://addons/Elementum/icons/N.svg" id="5_halw4"]
 
-[node name="Panel" type="Control"]
+[node name="Panel" type="Control" node_paths=PackedStringArray("search_bar", "filter_menu", "elements_list", "reload", "license")]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 3
 anchors_preset = 15
@@ -15,6 +15,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_b0w10")
+search_bar = NodePath("V/H/SearchBar")
+filter_menu = NodePath("V/H/FilterMenu")
+elements_list = NodePath("V/Scroll/ItemList")
+reload = NodePath("V/H/Reload")
+license = NodePath("V/H/License")
 
 [node name="V" type="VBoxContainer" parent="."]
 layout_mode = 1
