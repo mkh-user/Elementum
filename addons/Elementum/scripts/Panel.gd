@@ -17,6 +17,7 @@ func _ready():
 	elements_list.item_selected.connect(self._on_elements_list_item_selected)
 	reload.pressed.connect(self._reload)
 	license.pressed.connect(self._show_license)
+	self.custom_minimum_size = reload.size + Vector2(0, 100)
 	_load_elements()
 	_create_confirmation_dialog()
 
