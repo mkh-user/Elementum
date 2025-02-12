@@ -74,7 +74,10 @@ func _on_filter_menu_item_selected(index):
 
 func _on_elements_list_item_selected(index):
 	var selected_script_index = elements_list.get_selected_items()[0]
-	var script_info = elements[selected_script_index]
+	var script_info
+	for script in elements:
+		if elements_list.get_item_text(selected_script_index).get_slice(" - ", 0) == script["name"].get_slice(".", 0):
+			script_info = script
 	var confirmation_dialog = $ConfirmationDialog
 	confirmation_dialog.get_ok_button().text = "Download"
 	confirmation_dialog.get_cancel_button().text = "Cancel"

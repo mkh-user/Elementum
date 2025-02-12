@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm1nprq70dggn"]
+[gd_scene load_steps=6 format=3 uid="uid://dm1nprq70dggn"]
 
 [ext_resource type="Texture2D" uid="uid://uvsclqblw7eu" path="res://addons/Elementum/Reload.svg" id="1_2fc02"]
 [ext_resource type="Script" path="res://addons/Elementum/scripts/Panel.gd" id="1_b0w10"]
+[ext_resource type="Texture2D" uid="uid://dyyl1a040p7es" path="res://addons/Elementum/icons/C.svg" id="3_57uqh"]
+[ext_resource type="Texture2D" uid="uid://c1rw8bowojmoa" path="res://addons/Elementum/icons/L.svg" id="4_7sv22"]
+[ext_resource type="Texture2D" uid="uid://cgvp37uvughw2" path="res://addons/Elementum/icons/N.svg" id="5_halw4"]
 
 [node name="Panel" type="Control"]
 custom_minimum_size = Vector2(100, 0)
@@ -30,11 +33,10 @@ size_flags_horizontal = 3
 
 [node name="FilterMenu" type="OptionButton" parent="V/H"]
 layout_mode = 2
-item_count = 4
 selected = 0
 allow_reselect = true
+item_count = 4
 popup/item_0/text = "All"
-popup/item_0/id = 0
 popup/item_1/text = "Node"
 popup/item_1/id = 1
 popup/item_2/text = "Class"
@@ -59,4 +61,25 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 allow_reselect = true
+item_count = 10
 same_column_width = true
+item_0/text = "Percent - This class manages percentage values, allowing for setting, getting, and arithmetic operations and more."
+item_0/icon = ExtResource("3_57uqh")
+item_1/text = "ELibI - Elementum library (1), Useful functions set."
+item_1/icon = ExtResource("4_7sv22")
+item_2/text = "GameConfigure - Atomatic configure tool for games."
+item_2/icon = ExtResource("4_7sv22")
+item_3/text = "ELibII - Elementum library (2), Useful functions set."
+item_3/icon = ExtResource("4_7sv22")
+item_4/text = "ShaderRenderTool - Helper tool for rendering plain GLSL shaders to a texture via RenderingDevice."
+item_4/icon = ExtResource("3_57uqh")
+item_5/text = "ShaderTextEdit - A text box for editing a shader at runtime."
+item_5/icon = ExtResource("5_halw4")
+item_6/text = "BitReader - This class reads Bits from a PackedByteArray. Its supposed to be used in conjunction with the BitWriter, which allows for custom data compression."
+item_6/icon = ExtResource("3_57uqh")
+item_7/text = "BitWriter - This class writes Bits to a PackedByteArray. Its supposed to be used in conjunction with the BitReader, which allows for custom data compression."
+item_7/icon = ExtResource("3_57uqh")
+item_8/text = "GlobalPosition - Get global from a node and set it to a label. You can use it for send position from one to another node with create \"test\" variable for output node."
+item_8/icon = ExtResource("5_halw4")
+item_9/text = "NinePatchButton - A button with a managed NinePatchRect background."
+item_9/icon = ExtResource("5_halw4")
