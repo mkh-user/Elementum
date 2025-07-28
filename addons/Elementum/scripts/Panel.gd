@@ -2,9 +2,9 @@
 extends Control
 class_name Elementum_Panel
 
-const LICENSE_LINK: String = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/LICENSE"
-const ELEMENTS_LINK: String = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/elements.json"
-const RAW_FILES_LINK: String = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/"
+const HOST: String = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/"
+const LICENSE: String = HOST + "LICENSE"
+const LIST: String = HOST + "elements.json"
 const ELEMENTS_PATH: String = "user://Elements List.json"
 const BASE_ELEMET_PATH: String = "res://addons/Elementum/Downloads"
 
@@ -13,6 +13,8 @@ const BASE_ELEMET_PATH: String = "res://addons/Elementum/Downloads"
 @export var elements_list: ItemList
 @export var reload: Button
 @export var license: Button
+@export var repo: Button
+@export var confirmation: ConfirmationDialog
 
 var Downloader := preload("res://addons/Elementum/scripts/Downloader.gd")
 
@@ -21,22 +23,21 @@ var elements: Array = []
 
 
 func _ready() -> void:
-	search_bar.text_changed.connect(self._update_script_list.unbind(1))
-	filter_menu.item_selected.connect(self._update_script_list.unbind(1))
-	elements_list.item_selected.connect(self._on_elements_list_item_selected)
-	reload.pressed.connect(self._load_elements)
-	reload.icon = EditorInterface.get_base_control().get_theme_icon("Reload", "EditorIcons") # <- This line is commented for Signal Lens!
-	license.pressed.connect(OS.shell_open.bind(LICENSE_LINK))
+	search_bar.right_icon = EditorInterface.get_base_control().get_theme_icon("Search", "EditorIcons")
+	reload.icon = EditorInterface.get_base_control().get_theme_icon("Reload", "EditorIcons")
+	license.icon = EditorInterface.get_base_control().get_theme_icon("Script", "EditorIcons")
+	repo.icon = EditorInterface.get_base_control().get_theme_icon("ExternalLink", "EditorIcons")
+	license.pressed.connect(OS.shell_open.bind(LICENSE))
 	self.custom_minimum_size = reload.size + Vector2(0, 100)
 	_load_elements()
-	_create_confirmation_dialog()
+	#_create_confirmation_dialog()
 
 
 func _load_elements() -> void:
 	var http_request := HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(self._on_request_completed.bind(ELEMENTS_PATH))
-	http_request.request(ELEMENTS_LINK)
+	http_request.request(LIST)
 
 
 func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, save_path: String) -> void:
@@ -72,23 +73,21 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 func _on_elements_list_item_selected(index: int) -> void:
 	var script_info
 	for script in elements:
-		if elements_list.get_item_text(index).get_slice(" - ", 0) == script["name"].get_slice(".", 0):
+		if elements_list.get_item_text(index).get_slice("-", 0).strip_edges() == script["name"].get_slice(".", 0):
 			script_info = script
-	var confirmation_dialog = $ConfirmationDialog
-	confirmation_dialog.get_ok_button().text = "Download"
-	confirmation_dialog.get_cancel_button().text = "Cancel"
-	if confirmation_dialog.confirmed.is_connected(self._download_script):
-		confirmation_dialog.confirmed.disconnect(self._download_script)
-	confirmation_dialog.confirmed.connect(self._download_script.bind(script_info))
-	confirmation_dialog.dialog_text = "Name: {name}\nType: {type}\n\nDescription: {description}".format(script_info)
-	confirmation_dialog.popup_centered()
+			break
+	if confirmation.confirmed.is_connected(self._download_script):
+		confirmation.confirmed.disconnect(self._download_script)
+	confirmation.confirmed.connect(self._download_script.bind(script_info))
+	confirmation.dialog_text = "Name: {name}\nType: {type}\n\nDescription: {description}".format(script_info)
+	confirmation.popup_centered()
 
 
 func _download_script(script_info: Dictionary) -> void:
 	var downloader = Downloader.new()
 	self.add_child(downloader)
 	downloader.download_script(
-			RAW_FILES_LINK + script_info.name, 
+			HOST + script_info.name, 
 			BASE_ELEMET_PATH.path_join(script_info.type).path_join(script_info.name)
 	)
 
@@ -107,7 +106,8 @@ func _update_script_list() -> void:
 					icon = load("res://addons/Elementum/icons/C.svg")
 				"Library":
 					icon = load("res://addons/Elementum/icons/L.svg")
-			elements_list.add_item(script.name.erase(script.name.find(".gd"), 3) + " - " + script.description, icon)
+			var script_name: String = script.name
+			elements_list.add_item(script_name.erase(script_name.find(".gd"), 3) + "  -  " + script.description, icon)
 
 
 func _create_confirmation_dialog() -> void:
@@ -115,3 +115,7 @@ func _create_confirmation_dialog() -> void:
 	confirmation_dialog.name = "ConfirmationDialog"
 	confirmation_dialog.dialog_autowrap = true
 	add_child(confirmation_dialog)
+
+
+func _on_repo_pressed() -> void:
+	OS.shell_open("https://github.com/mkh-user/Elementum")
