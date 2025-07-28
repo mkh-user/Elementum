@@ -2,11 +2,11 @@
 extends Control
 class_name Elementum_Panel
 
-const LICENSE_LINK = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/LICENSE"
-const ELEMENTS_LINK = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/elements.json"
-const RAW_FILES_LINK = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/"
-const ELEMENTS_PATH = "user://Elements List.json"
-const BASE_ELEMET_PATH = "res://addons/Elementum/Downloads"
+const LICENSE_LINK: String = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/LICENSE"
+const ELEMENTS_LINK: String = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/elements.json"
+const RAW_FILES_LINK: String = "https://raw.githubusercontent.com/mkh-user/ElementumHost/refs/heads/main/"
+const ELEMENTS_PATH: String = "user://Elements List.json"
+const BASE_ELEMET_PATH: String = "res://addons/Elementum/Downloads"
 
 @export var search_bar: LineEdit
 @export var filter_menu: OptionButton
@@ -32,8 +32,8 @@ func _ready() -> void:
 	_create_confirmation_dialog()
 
 
-func _load_elements()-> void :
-	var http_request: HTTPRequest = HTTPRequest.new()
+func _load_elements() -> void:
+	var http_request := HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(self._on_request_completed.bind(ELEMENTS_PATH))
 	http_request.request(ELEMENTS_LINK)
@@ -45,7 +45,7 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 		file.store_buffer(body)
 		file.close()
 		file = FileAccess.open(save_path, FileAccess.READ)
-		var json_string := file.get_line()
+		var json_string: String = file.get_as_text()
 		file.close()
 		var json := JSON.new()
 		var error := json.parse(json_string)
@@ -65,6 +65,8 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 				elements_list.add_item("ERR 403 : Blocked from the server!", null, false)
 			404:
 				elements_list.add_item("ERR 404 : Cann't find request data!", null, false)
+			_:
+				elements_list.add_item("Unknown Error: " + str(response_code), null, false)
 
 
 func _on_elements_list_item_selected(index: int) -> void:
