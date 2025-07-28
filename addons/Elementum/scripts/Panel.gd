@@ -110,12 +110,5 @@ func _update_script_list() -> void:
 			elements_list.add_item(script_name.erase(script_name.find(".gd"), 3) + "  -  " + script.description, icon)
 
 
-func _create_confirmation_dialog() -> void:
-	var confirmation_dialog := ConfirmationDialog.new()
-	confirmation_dialog.name = "ConfirmationDialog"
-	confirmation_dialog.dialog_autowrap = true
-	add_child(confirmation_dialog)
-
-
 func _on_repo_pressed() -> void:
 	OS.shell_open("https://github.com/mkh-user/Elementum")
