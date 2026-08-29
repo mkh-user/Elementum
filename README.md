@@ -1,3 +1,8 @@
+> [!Important]
+> This project is currently inactive until I find time to redesign it or an active contributor. Please do not use it. You can support the project by starring it 🌟 so I know that people care about it and I can prioritize it. Also, please see [my other projects](https://github.com/mkh-user), I'm mostly focusing on those right now.
+> 
+> If you would like to help develop this extension, I would greatly appreciate it! You can open an issue and state this.
+
 # Welcome to the Elementum III Project!
 
 Elementum III is a powerful Godot 4 plugin that streamlines the download and management of additional features directly within your editor, eliminating the need for separate plugin managers.
